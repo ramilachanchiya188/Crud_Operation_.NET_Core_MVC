@@ -1,0 +1,74 @@
+﻿@model List<CrudOperationMVC.Models.StudentViewModel>
+@{
+    ViewData["Title"] = "Student Details";
+    var successmsg = TempData["successmsg"]?.ToString();
+    var errmsg = TempData["errmsg"]?.ToString();
+
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(successmsg))
+{
+    <div class="alert alert-success">
+        <strong> Success!</strong>@successmsg
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>   
+}
+else if (!string.IsNullOrWhiteSpace(errmsg))
+{
+    <div class="alert alert-danger">
+    <strong> Error!! </strong>@errmsg
+    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+<form>
+    <button asp-action="Create" asp-controller="Student" class="btn btn-primary mb-3">Add Student</button>
+    <table class="table table-responsive table-hover table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th class="text-center">Student Id</th>
+                <th class ="text-center">Name</th>
+                <th class="text-center">Date Of Birth</th>
+                <th class="text-center">E-Mail</th>
+                <th class="text-center">Stream</th>
+                <th class="text-center">Subjects</th>
+                <th class="text-center">Marks(%)</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model !=null && Model.Any())
+            {
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td class ="text-center">@student.StudId</td>
+                        <td>@student.FullName</td>
+                        <td class="text-center">@student.DateOfBirth</td>
+                        <td>@student.Email</td>
+                        <td>@student.Stream</td>
+                        <td>@student.Subjects</td>
+                        <td class="text-end">@student.Marks</td>
+                        <td>
+                            <div class="btn-group btn-group-sm"></div>
+                            <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.StudId" class="btn btn-primary">Edit</a>
+                            <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.StudId" class="btn btn-danger">Delete</a>
+
+                                </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            No Students available in this Moment!!
+                        </div>
+                    </td>
+                </tr>
+                
+            }
+        </tbody>
+    </table>
+</form>

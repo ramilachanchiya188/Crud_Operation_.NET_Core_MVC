@@ -1,0 +1,66 @@
+﻿@model CrudOperationMVC.Models.StudentViewModel
+@{
+    ViewData["Title"] = "Add Student";
+    var errmsg = TempData["errmsg"]?.ToString();
+
+
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(errmsg))
+{
+<div class="alert alert-danger">
+    <strong> Error!! </strong>@errmsg
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+
+</div>
+}
+<form action="Create" method="post" autocomplete="off">
+    <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" asp-for="FirstName" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" asp-for="LastName" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Date Of Birth</label>
+        <input type="date" class="form-control" asp-for="DateOfBirth" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">E-Mail</label>
+        <input type="email" class="form-control" asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Stream</label>
+        <input type="text" class="form-control" asp-for="Stream" />
+        <span asp-validation-for="Stream" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Subject</label>
+        <input type="text" class="form-control" asp-for="Subjects" />
+        <span asp-validation-for="Subjects" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Mark</label>
+        <!--  <div class="input-group">
+            <span class="input-group-text">₹</span>-->
+            <input type="text" class="form-control" asp-for="Marks" />
+            <span asp-validation-for="Marks" class="text-danger"></span>
+        <!--</div> -->       
+    </div>
+    <div class="d-grid">
+        <button type="Submit" class="btn btn-primary" >Submit</button>
+
+    </div>
+</form>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }    
+}
